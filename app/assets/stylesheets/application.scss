@@ -1,0 +1,330 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+ *= require_self
+ */
+@import "grid-settings";
+@import "bourbon";
+@import "neat";
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  &.page-is-changing {
+    overflow: hidden;
+  }
+}
+
+.cv-page,
+.index-page {
+  .header {
+    @include outer-container(100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-image: asset_url('header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    //height:440px;
+    height: 50vh;
+    width: 100%;
+
+    @include transition(width 0.2s, height 0.2s, opacity 0.2s);
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      h1 {
+        font-size: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #434445;
+        margin: 0;
+        transform: rotate(0deg);
+        white-space: nowrap;
+        @include transition(transform 0.5s ease-in, opacity 0.2s 0.6s);
+
+      }
+      h2 {
+        font-size: 18px;
+        font-weight: 400;
+        color: #616265;
+      }
+      @include media($mobile) {
+        h1 {
+          transform: scale(0.8);
+        }
+        h2{
+          transform: scale(0.8);
+        }
+      }
+    }
+    .page-is-changing & {
+      height: 100vh;
+      width: 10vw;
+      position: absolute;
+      font-size: 40px;
+      color: white;
+      right: 0;
+      .go-back {
+        opacity: 0;
+      }
+      .title {
+
+        h1 {
+          //position: absolute;
+          //color:white;
+          //transform:rotate(90deg);
+          opacity: 0;
+          @include transition(transform 1s ease-in, opacity 0.5s 1.1s);
+
+        }
+        h2 {
+          opacity: 0;
+          @include transition(opacity 0.3s);
+        }
+
+      }
+      @include transition(height 0.8s, width 0.8s 1.2s);
+    }
+    &.small {
+
+    }
+  }
+
+  .main-content {
+    @include outer-container($max-width);
+    //margin-top:50px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    height: 50vh;
+    padding: 0px 15px;
+    @include media($tablet) {
+      display: block;
+    }
+    h3 {
+      font-size: 27px;
+      color: #415372;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 15px;
+      color: #51545a;
+      line-height: 28px;
+      font-weight: 400;
+    }
+    .btn {
+      display: inline-block;
+      color: #fff;
+      background-color: #81c3dd;
+      padding: 15px 25px;
+      border-radius: 25px;
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 400;
+      text-decoration: none;
+    }
+    .cv-holder {
+      @include span-columns(6);
+      display: flex;
+      opacity: 1;
+      min-height: 300px;
+      @include media($tablet) {
+        @include span-columns(8);
+        display: block;
+      }
+
+      p {
+        max-width: 500px;
+      }
+      .btn {
+        margin-top: 20px;
+      }
+      .page-is-changing & {
+        opacity: 0;
+        display: none;
+        @include transition(opacity 0.2s);
+      }
+
+      @include transition(opacity 0.6s);
+    }
+    .projects-holder {
+      @include span-columns(5);
+      @include shift(1);
+
+      @include media($tablet) {
+        @include span-columns(8);
+        @include shift(0);
+        display: block;
+      }
+      display: flex;
+      min-height: 300px;
+      position: relative;
+
+      .projects {
+        position:relative;
+        display:flex;
+        align-content:flex-start;
+        flex-direction: column;
+        .item {
+          display: inline-block;
+          padding: 20px 0px;
+          min-width: 300px;
+          text-indent: 20px;
+          background-color: #f6f6f6;
+          width: 100%;
+          list-style-type: none;
+          margin-bottom: 20px;
+
+        }
+      }
+      .page-is-changing & {
+        display: none;
+      }
+
+    }
+    @include transition(transform 0.6s);
+  }
+  &.cv-page {
+    .header {
+      height: 100vh;
+      width: 10vw;
+      position: absolute;
+      font-size: 40px;
+      color: white;
+      right: 0;
+      z-index: 99;
+      .go-back {
+        opacity: 1;
+        transform: rotate(90deg);
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        @include transition(opacity 1.2s);
+      }
+      .page-is-changing & {
+        height: 50vh;
+        width: 100%;
+        .go-back {
+          opacity: 0;
+          @include transition(opacity 1.2s);
+        }
+        @include transition(width 0.8s, height 0.8s 0.8s);
+      }
+
+    }
+    .main-cv {
+      justify-content: center;
+      height: 100%;
+
+      .page-is-changing & {
+        opacity: 0;
+        @include transition(opacity 0.3s);
+      }
+      .my-cv-holder {
+        @include span-columns(12);
+        opacity: 1;
+        text-align: center;
+        margin-top: 50px;
+        padding-right:10vw;
+        p {
+          max-width: 500px;
+          margin: 0 auto;
+          margin-bottom: 10px;
+        }
+        .btn {
+          margin-top: 20px;
+        }
+        .timeline {
+          margin-top: 100px;
+          position: relative;
+          h4{
+
+          }
+          .timeline-line {
+            position: absolute;
+          }
+          .time-line-row {
+            @include row();
+            position: relative;
+            //padding-bottom:50px;
+            min-height: 70px;
+
+            display: flex;
+            .left-timeline {
+              @include span-columns(4 of 12);
+              font-size: 15px;
+              font-weight: 700;
+              text-align: right;
+              color: #415372;
+              align-items: stretch;
+            }
+            .timeline-dot {
+              @include span-columns(1 of 12);
+              align-items: stretch;
+              .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+                background-color: #cacfd3;
+                margin: 0 auto;
+                margin-top: 5px;
+                &::before {
+                  content: '';
+                  position: absolute;
+                  z-index: -1;
+                  width: 0.5px;
+                  height: 100%;
+                  border: 1px dashed #cfd4d8;
+                  margin: 0 auto;
+                  margin-top: 5px;
+                  margin-left: -1px;
+                }
+              }
+              &.last {
+                .dot {
+                  &::before {
+                    display: none;
+                  }
+                }
+              }
+            }
+            .right-timeline {
+              @include span-columns(7 of 12);
+              font-weight: 400;
+              font-size: 13px;
+              text-align: left;
+              align-items: stretch;
+              h4{
+                margin-top:-45px;
+                font-size:17px;
+              }
+              span {
+                color: #b4b4b4;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
